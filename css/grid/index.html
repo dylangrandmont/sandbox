@@ -1,0 +1,46 @@
+<style>
+    .navbar {
+        grid-area: navbar;
+        background: green;
+    }
+    .sidebar {
+        grid-area: sidebar;
+        background: red;
+    }
+    .plot {
+        grid-area: plot;
+        background: black;
+    }
+    .container {
+        height: 50vh;
+        width: 100vw;
+        display: grid;
+        border: 1px solid white
+    }
+    #container-1 {
+        grid-template-columns: auto;
+        grid-template-rows: auto 100px;
+        grid-template-areas: 
+            "plot plot"
+            "sidebar sidebar";
+    }
+    #container-2 {
+        grid-template-columns: 70px auto;
+        grid-template-rows: 50px auto;
+        grid-template-areas: 
+            "navbar navbar"
+            "sidebar plot";
+    }
+</style>
+
+<body>
+    <div class="container" id="container-1">
+        <div class="sidebar"></div>
+        <div class="plot"></div>
+    </div>
+    <div class="container" id="container-2">
+        <div class="navbar"></div> 
+        <div class="sidebar"></div>
+        <div class="plot"></div>
+    </div>    
+</body>
