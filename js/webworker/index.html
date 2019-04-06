@@ -1,0 +1,23 @@
+<script src="./main.js"></script>
+<body>
+    <h2>Demo of WebWorkers to Avoid Blocking Event Loop</h2>
+    <div>
+        <p>
+            Clicking this will run a simple calculation within a web worker.
+            The ouput will appear on the screen.
+            A timer will indicate how long the event loop was "blocked" while creating the web worker.
+        </p>
+        <button onclick="calculateWithWebWorker()">Use Web Worker</button>
+    </div>
+    <div>
+        <p>
+            Clicking this will run a simple calculation without a web worker.
+            The ouput will appear on the screen.
+            A timer will indicate how long the event loop was blocked while calculating.
+            Note the the page becomes unresponsive during that time.
+        </p>
+        <button onclick="calculateOnMainThread()">Use Main JS</button>        
+    </div>
+    <h2>Results <button onclick="clearResults()">Clear</button></h2>
+    <div id="result"></div>
+</body>

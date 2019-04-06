@@ -1,0 +1,22 @@
+{
+  "name": "sandbox",
+  "version": "1.0.0",
+  "description": "Web Technology Minimals",
+  "main": "index.js",
+  "scripts": {
+    "run": "ws"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dylangrandmont/sandbox.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dylangrandmont/sandbox/issues"
+  },
+  "homepage": "https://github.com/dylangrandmont/sandbox#readme",
+  "dependencies": {
+    "local-web-server": "^2.6.1"
+  }
+}
