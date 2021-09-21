@@ -19,7 +19,7 @@ io.on('connection', (socket) => {
     })
 
     socket.on('user connected', () => {
-        io.emit('user joined');
+        io.broadcast.emit('user joined');
     })
 
     socket.on('disconnect', () => {
