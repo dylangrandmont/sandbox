@@ -1,0 +1,133 @@
+<html>
+  <head>
+      <link rel="stylesheet" href="/palette.css">
+    <script src="https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js"></script>
+    <style>
+      body {
+        margin: 0px;
+        background-color: var(--palette-main-1);
+        font-family: Roboto;
+        padding: 24px;
+      }
+      .root {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: column;
+        height: 100%;
+        gap: 5%;
+      }
+      .portal {
+        color: #fafafa;
+        width: 50%;
+        flex-basis: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid #181831;
+        border-radius: 8px;
+        font-size: 24px;
+        background: linear-gradient(0, var(--palette-main-2), var(--palette-main-3), var(--palette-main-4), var(--palette-main-5));
+        background-size: 400% 400%;
+        background-position: 0% 0%;
+    }
+    
+    .portal.dropped {
+        opacity: 0.7;
+    }
+    .portal.loading {
+        background-position: 0% 50%;
+        animation: loading 4s ease infinite;
+      }
+      @keyframes loading {
+          0% {
+            background-position: 0% 0%;
+          }
+          50% {
+            background-position: 0% 50%;
+          }
+          100% {
+            background-position: 0% 0%;
+          }
+      }
+      .text {
+        width: 50%;
+        box-sizing: border-box;
+        border: 1px solid #181831;
+        padding: 24px;
+        background: var(--palette-main-0);
+      }
+      .hidden {
+          display: none;;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      function getPortal() {
+        return document.querySelector('.portal')
+      }
+      function getStatus() {
+        return document.querySelector('.status')
+      }
+
+      async function handleDrop(event) {
+        event.preventDefault()
+        getPortal().classList.add('loading')
+        getPortal().classList.remove('dropped')
+        getStatus().textContent = 'Processing...'
+        if (event.dataTransfer.items) {
+          for (var i = 0; i < event.dataTransfer.items.length; i++) {
+            if (event.dataTransfer.items[i].kind === 'file') {
+              var file = event.dataTransfer.items[i].getAsFile()
+              const buffer = await file.arrayBuffer()
+              Tesseract.recognize(buffer, 'eng', { logger: (m) => {
+                  getStatus().textContent = `${Math.round(m.progress * 100)}% ${m.status} ... `;
+                  console.log(m)
+                } }).then(({ data: { text } }) => {
+                    getStatus().textContent = 'Complete';
+                document.querySelector('.text').textContent = text
+                document.querySelector('.text').classList.remove('hidden')
+                getPortal().classList.remove('loading')
+
+                getPortal().style.backgroundImage = `url('data:image/png;base64, ${base64(buffer)}')`
+                getPortal().style.backgroundSize = 'contain';
+                getPortal().style.backgroundRepeat = 'no-repeat';
+                getPortal().style.backgroundPosition = 'center';
+                getPortal().style.backgroundColor = 'white';
+              })
+            }
+          }
+        }
+      }
+
+      function base64(arrayBuffer) {
+        return btoa(
+  new Uint8Array(arrayBuffer)
+    .reduce((data, byte) => data + String.fromCharCode(byte), '')
+);
+      } 
+
+      function dragOverHandler(event) {
+        event.preventDefault()
+        getPortal().classList.add('dropped')
+      }
+      function dragLeaveHandler() {
+        getPortal().classList.remove('dropped')
+      }
+    </script>
+    <div class="root">
+      <div
+        class="portal"
+        ondrop="handleDrop(event)"
+        ondragover="dragOverHandler(event)"
+        ondragleave="dragLeaveHandler(event)"
+        ondragend="dragLeaveHandler(event)"
+      >
+        <p>Drop An Image File Here</p>
+      </div>
+      <div class="status"></div>
+      <div class="text hidden"></div>
+    </div>
+  </body>
+</html>
