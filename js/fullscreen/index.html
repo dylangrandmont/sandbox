@@ -52,8 +52,16 @@
       }
     </script>
     <div class="root">
-        <a href="/" style="position: fixed; top: 0px; left: 0px; margin: 48px">
+        <a href="/" style="position: fixed;
+        display: flex;
+        top: 0px;
+        left: 0px;
+        flex-direction: column;
+        margin: 48px;
+        align-items: center;
+    ">
             <img src="/ferris-svgrepo-com.svg" width="50">
+            ←
         </a>
       <button onclick="handleClick()">Click to enter fullscreen</button>
     </div>
