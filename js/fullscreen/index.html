@@ -11,7 +11,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100%;
       }
       button {
         background-color: var(--palette-main-6);
@@ -51,18 +50,16 @@
         }
       }
     </script>
-    <div class="root">
-        <a href="/" style="position: fixed;
+        <a href="/" style="
         display: flex;
-        top: 0px;
-        left: 0px;
         flex-direction: column;
-        margin: 48px;
         align-items: center;
+        width: min-content;
     ">
             <img src="/ferris-svgrepo-com.svg" width="50">
             ←
         </a>
+    <div class="root">
       <button onclick="handleClick()">Click to enter fullscreen</button>
     </div>
   </body>
