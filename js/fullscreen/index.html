@@ -1,0 +1,58 @@
+<html>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/palette.css" />
+  <link rel="stylesheet" href="/body.css" />
+  <head>
+    <style>
+      body {
+        background-color: var(--palette-main-1);
+      }
+      .root {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+      }
+      button {
+        background-color: var(--palette-main-6);
+        color: var(--palette-main-0);
+        padding: 24px;
+        font-family: 'Roboto Mono';
+        border-radius: 8px;
+        transition: transform 0.2s linear;
+      }
+      button:hover {
+        background-color: var(--palette-main-5);
+        transform: translateY(-2px);
+      }
+      button:focus {
+        background-color: var(--palette-main-5);
+        transform: translateY(-2px);
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      const enterMessage = 'Click to enter fullscreen'
+      const exitMessage = 'Click to exit fullscreen'
+
+      document.onfullscreenchange = (event) => {
+        if (document.fullscreenElement) {
+          document.querySelector('button').textContent = exitMessage
+        } else {
+          document.querySelector('button').textContent = enterMessage
+        }
+      }
+      function handleClick() {
+        if (document.fullscreenElement) {
+          document.exitFullscreen()
+        } else {
+          document.documentElement.requestFullscreen()
+        }
+      }
+    </script>
+    <div class="root">
+      <button onclick="handleClick()">Click to enter fullscreen</button>
+    </div>
+  </body>
+</html>
