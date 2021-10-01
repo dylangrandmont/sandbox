@@ -1,0 +1,198 @@
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin=""></script>
+    <style>
+        html {
+            background-color: #fafafa;
+            font-family: Roboto;
+        }
+        canvas {
+            padding: 24px;
+        }
+        .form {
+            color: #fafafa;
+            font-family: Roboto;
+            font-size: 18px;
+            padding: 40px;
+            flex-direction: column;
+            display: flex;
+            align-items: center;
+            border-radius: 4px;
+            background-color: #3b3b3b;
+            box-shadow: 1px 1px 0 1px #f9f9fb, -1px 0 28px 0 rgba(3, 3, 3, 0.01), 28px 28px 28px 0 rgba(34, 33, 81, 0.25);
+            transition: height 1.5s linear;
+            height: 100%
+        }
+        .form.short {
+          height: auto
+        } 
+
+        .form > p {
+          width: 200px;
+        align-self: flex-start;
+        background: white;
+        border-radius: 4px;
+        border: 4px solid #0000002b;
+        color: #3b3b3b;
+        padding: 16px;
+        }
+
+        .container {
+          display: flex;
+        }
+        .container > * {
+          flex-grow: 1;
+        }
+        #mapid {
+   }
+    </style>
+</head>
+<body>
+
+<script defer>
+    let assessmentChart;
+    let communityPopulationChart;
+    let vacantDwellingChart;
+    
+    function initialize() {
+        const initialAddress = localStorage.getItem('address')
+        if (initialAddress) {
+            document.querySelector('input').value = initialAddress
+            makeRequest();
+        }
+    }
+
+    window.onload = initialize;
+
+      function makeRequest() {
+          document.querySelector('.form').classList.add('short');
+          const address = document.querySelector('input').value;
+          localStorage.setItem('address', address)
+        const url = `https://data.calgary.ca/resource/6zp6-pxei.json?address=${address}`
+        fetch(url)
+          .then((reponse) => reponse.json())
+          .then((response) => {
+            const data = response.sort((a, b) => (Number(a.roll_year) > Number(b.roll_year) ? 1 : -1))
+            var ctx = document.getElementById('assessment').getContext('2d')
+
+            if (assessmentChart) {
+                assessmentChart.destroy()
+            }
+
+            assessmentChart = makeBarGraph(response.map(item => item.roll_year), response.map(item => item.assessed_value), ctx, 'Property Assessment', `Property Assessment - ${address}`)
+            const addressObject = response[0];
+
+            if (addressObject.comm_code) {
+                populateCommunityGraph(addressObject.comm_code, addressObject.comm_name)
+            }
+
+            var mymap = L.map('mapid').setView([Number(addressObject.latitude), Number(addressObject.longitude)], 17);
+            var circle = L.circle([Number(addressObject.latitude), Number(addressObject.longitude)], {
+    color: 'red',
+    fillColor: '#f03',
+    fillOpacity: 0.5,
+    radius: 2
+}).addTo(mymap);
+
+
+L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+  maxZoom: 18,
+  attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
+    'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+  id: 'mapbox/streets-v11',
+  tileSize: 512,
+  zoomOffset: -1
+}).addTo(mymap);
+
+L.marker([51.5, -0.09]).addTo(mymap);
+
+L.circle([51.508, -0.11], {
+  color: 'red',
+  fillColor: '#f03',
+  fillOpacity: 0.5,
+  radius: 500
+}).addTo(mymap);
+
+L.polygon([
+  [51.509, -0.08],
+  [51.503, -0.06],
+  [51.51, -0.047]
+]).addTo(mymap);
+
+
+          })
+        }
+
+        function populateCommunityGraph(communityCode, community) {
+            const url = `https://data.calgary.ca/resource/s7f7-3gjj.json?code=${communityCode}`;
+            fetch(url)
+          .then((reponse) => reponse.json())
+          .then((response) => {
+            const data = response.sort((a,b) => Number(a.census_year) - Number(b.census_year))
+            var ctx = document.getElementById('population-total').getContext('2d')
+
+            if (communityPopulationChart) {
+                communityPopulationChart.destroy()
+            }
+            communityPopulationChart = makeBarGraph(data.map(item => item.census_year), data.map(item => item.resident_cnt), ctx, 'Community Population', `Community Population - ${community}`)
+        })
+        }
+
+        function makeBarGraph(x, y, selection, label, title) {
+            return new Chart(selection, {
+              type: 'bar',
+              data: {
+                labels: x,
+                datasets: [
+                  {
+                    label,
+                    data: y,
+                    borderWidth: 2,
+                    backgroundColor: '#d2b4db',
+                    borderColor: '#c564e3'
+                  }
+                ]
+              },
+              options: {
+                  plugins: {
+                    title: {
+                        display: true,
+                        font: { size: 24},
+                        text: title
+                    }
+                  },
+                scales: {
+                  y: {
+                    beginAtZero: true
+                  }
+                }
+              }
+            })
+        }
+
+    </script>
+    <div class="form">
+      <p>
+        Generate a dashboard of Calgary properties based on address.
+        Enter an address below.
+        Data will be fetched from the city's open database.
+      </p>
+        Address
+        <form onsubmit="makeRequest(); return false">
+            <input type="text"></input>
+            <input type="submit" value="Go">
+        </form>
+    </div>
+    <div class="container">
+        <div id="mapid"></div>
+          <canvas id="assessment"></div>
+          <canvas id="population-total"></div>
+      </div>
+    </body>
+</html>
