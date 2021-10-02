@@ -1,0 +1,88 @@
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/palette.css" />
+    <link rel="stylesheet" href="/body.css" />
+    <style>
+      body {
+        background-color: var(--palette-main-1);
+      }
+      h3 {
+          padding-top: 16px;
+      }
+      h3:last-of-type {
+          padding-top: 32px;;
+      }
+      .flex {
+          display: flex;
+          border: 1px solid var(--palette-main-5);
+          border-radius: 4px;
+          padding: 8px;
+      }
+      .flex > .item {
+        border: 1px solid var(--palette-main-5);
+        background-color: var(--palette-main-2);
+          padding: 8px;
+          border-radius: 4px;
+      }
+      .justify-content-center {
+          justify-content: center;
+      }
+      .justify-content-end {
+          justify-content: flex-end;
+      }
+      .flex.gap {
+          gap: 8px;
+      }
+      .flex.row-reverse {
+          flex-direction: row-reverse;
+      }
+      .item.grow {
+          flex-grow: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="/" style="display: flex; flex-direction: column; align-items: center; width: min-content">
+      <img src="/ferris-svgrepo-com.svg" width="50" />
+      ←
+    </a>
+    <h3>Flex Row (Default)</h3>
+    <div class="flex">
+        <div class="item">Item 1</div>
+        <div class="item">Item 2</div>
+    </div>
+
+    <h3>Flex Row - Center Justified</h3>
+    <div class="flex justify-content-center">
+        <div class="item">Item 1</div>
+        <div class="item">Item 2</div>
+    </div>
+
+    <h3>Flex Row - Flex-End Justified</h3>
+    <div class="flex justify-content-end">
+        <div class="item">Item 1</div>
+        <div class="item">Item 2</div>
+    </div>
+
+    <h3>Flex Row - Gap 8px</h3>
+    <div class="flex gap">
+        <div class="item">Item 1</div>
+        <div class="item">Item 2</div>
+    </div>
+
+    <h3>Flex Row - row-reverse</h3>
+    <div class="flex row-reverse">
+        <div class="item">Item 1</div>
+        <div class="item">Item 2</div>
+    </div>
+
+    <h3>Flex Row - flex-grow: 1</h3>
+    <div class="flex">
+        <div class="item">Item 1</div>
+        <div class="item grow">Item 2</div>
+    </div>
+    <h3>References</h3>
+    <p>For a great primer on css flex box, checkout <a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/">the guide from css-tricks</a></p>
+</body>
+</html>
