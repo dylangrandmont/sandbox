@@ -23,6 +23,7 @@
         width: calc(var(--theme-spacing) * 20);
         display: flex;
         justify-content: center;
+        align-items: center;
         border: 4px solid var(--palette-main-6);
         border-radius: 4px;
         transition: transform 0.2s linear;
@@ -63,24 +64,19 @@
       </div>
     <h2>JS</h2>
     <div class="flex gap">
-      <div class="item">
-        <a href="/js/webworker/index.html" >WebWorker</a>
-      </div>       
-      <div class="item">
-        <a href="/js/fullscreen/index.html" >Fullscreen API</a>
-      </div>       
+      <a href="/js/webworker/index.html" >
+        <div class="item">
+          WebWorker
+        </div>       
+      </a>
+      <a href="/js/fullscreen/index.html" >
+        <div class="item">
+          Fullscreen API
+        </div>       
+      </a>
       <div class="item">
         <a href="/js/ocr/index.html" >Tesseract (OCR)</a>
       </div>       
-    </div>
-  <h2>PWA</h2>
-  <div class="flex gap">
-    <div class="item">
-        <a href="/pwa/serviceworkers/navigator-storage.html" >PWA storage size</a>
-        </td>
-        </div>
-        </div>
-  
     </div>
   </body>
 </html>
