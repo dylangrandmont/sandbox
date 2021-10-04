@@ -1,8 +1,9 @@
 <html>
   <head>
-      <link rel="stylesheet" href="/palette.css">
-      <link rel="stylesheet" href="/body.css">
-      <script src="/topic-container.js"></script>
+    <link rel="stylesheet" href="/palette.css" />
+    <link rel="stylesheet" href="/body.css" />
+    <script src="/topic-container.js"></script>
+    <script src="/navigation-wheel.js"></script>
     <script src="https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js"></script>
     <style>
       body {
@@ -27,25 +28,25 @@
         background: linear-gradient(0, var(--palette-main-2), var(--palette-main-3), var(--palette-main-4), var(--palette-main-5));
         background-size: 400% 400%;
         background-position: 0% 0%;
-    }
-    
-    .portal.dropped {
+      }
+
+      .portal.dropped {
         opacity: 0.7;
-    }
-    .portal.loading {
+      }
+      .portal.loading {
         background-position: 0% 50%;
         animation: loading 4s ease infinite;
       }
       @keyframes loading {
-          0% {
-            background-position: 0% 0%;
-          }
-          50% {
-            background-position: 0% 50%;
-          }
-          100% {
-            background-position: 0% 0%;
-          }
+        0% {
+          background-position: 0% 0%;
+        }
+        50% {
+          background-position: 0% 50%;
+        }
+        100% {
+          background-position: 0% 0%;
+        }
       }
       .text {
         width: 50%;
@@ -55,7 +56,7 @@
         background: var(--palette-main-0);
       }
       .hidden {
-          display: none;;
+        display: none;
       }
     </style>
   </head>
@@ -78,20 +79,22 @@
             if (event.dataTransfer.items[i].kind === 'file') {
               var file = event.dataTransfer.items[i].getAsFile()
               const buffer = await file.arrayBuffer()
-              Tesseract.recognize(buffer, 'eng', { logger: (m) => {
-                  getStatus().textContent = `${Math.round(m.progress * 100)}% ${m.status} ... `;
+              Tesseract.recognize(buffer, 'eng', {
+                logger: (m) => {
+                  getStatus().textContent = `${Math.round(m.progress * 100)}% ${m.status} ... `
                   console.log(m)
-                } }).then(({ data: { text } }) => {
-                    getStatus().textContent = 'Complete';
+                }
+              }).then(({ data: { text } }) => {
+                getStatus().textContent = 'Complete'
                 document.querySelector('.text').textContent = text
                 document.querySelector('.text').classList.remove('hidden')
                 getPortal().classList.remove('loading')
 
                 getPortal().style.backgroundImage = `url('data:image/png;base64, ${base64(buffer)}')`
-                getPortal().style.backgroundSize = 'contain';
-                getPortal().style.backgroundRepeat = 'no-repeat';
-                getPortal().style.backgroundPosition = 'center';
-                getPortal().style.backgroundColor = 'white';
+                getPortal().style.backgroundSize = 'contain'
+                getPortal().style.backgroundRepeat = 'no-repeat'
+                getPortal().style.backgroundPosition = 'center'
+                getPortal().style.backgroundColor = 'white'
               })
             }
           }
@@ -99,11 +102,8 @@
       }
 
       function base64(arrayBuffer) {
-        return btoa(
-  new Uint8Array(arrayBuffer)
-    .reduce((data, byte) => data + String.fromCharCode(byte), '')
-);
-      } 
+        return btoa(new Uint8Array(arrayBuffer).reduce((data, byte) => data + String.fromCharCode(byte), ''))
+      }
 
       function dragOverHandler(event) {
         event.preventDefault()
@@ -113,19 +113,9 @@
         getPortal().classList.remove('dropped')
       }
     </script>
-        <a href="/" style="
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: min-content;
-    ">
-            <img src="/ferris-svgrepo-com.svg" width="50">
-            ←
-        </a>
-        <h2>
-          Optical Character Recognition
-        </h2>
-        <topic-container topics="ocr,neutral network"></topic-container>
+    <navigation-wheel></navigation-wheel>
+    <h2>Optical Character Recognition</h2>
+    <topic-container topics="ocr,neutral network"></topic-container>
     <div class="root">
       <div
         class="portal"

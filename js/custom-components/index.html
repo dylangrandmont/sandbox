@@ -4,6 +4,7 @@
         <link rel="stylesheet" href="/palette.css" />
         <link rel="stylesheet" href="/body.css" />
         <script type="module" src="./code-block.js" ></script>
+        <script src="/navigation-wheel.js"></script>
         <script src="/topic-container.js"></script>
         <style>
             body {
@@ -16,15 +17,7 @@
         </style>
     </head>
     <body>
-        <a href="/" style="
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: min-content;
-    ">
-            <img src="/ferris-svgrepo-com.svg" width="50">
-            ←
-        </a>
+        <navigation-wheel></navigation-wheel>
         <h2>Web Components</h2>
         <topic-container topics="js"></topic-container>
         <p>
