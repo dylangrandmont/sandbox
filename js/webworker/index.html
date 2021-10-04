@@ -2,10 +2,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/palette.css">
     <link rel="stylesheet" href="/body.css">
+    <script type="module" src="/topic-container.js"></script>
     <style>
         body {
             background-color: var(--palette-main-1);
         }
+        .topic-container {
+            display: flex;
+            gap: 4px;
+        }
+        .topic {
+            background-color: var(--palette-main-5);
+            color: var(--palette-main-0);
+            border-radius: 8px;
+            padding: 2px 4px;
+            width: min-content;
+}
     </style>
     <style>
 
@@ -22,7 +34,9 @@
             ←
         </a>
         <h2>
-            Demo of WebWorkers to Avoid Blocking Event Loop</h2>
+            Demo of WebWorkers to Avoid Blocking Event Loop
+        </h2>
+        <topic-container topics="JS,Performance"></topic-container>
         <div>
             <p>
                 Clicking this will run a simple calculation within a web worker.

@@ -3,6 +3,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500;700&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="/palette.css" />
         <link rel="stylesheet" href="/body.css" />
+        <script src="/topic-container.js"></script>
         <style>
             body {
                 background-color: var(--palette-main-1);
@@ -51,7 +52,8 @@
             ←
           </a>
           <h2>Z Index</h2>
-        <p>
+          <topic-container topics="css"></topic-container>
+          <p>
             Z Indices control the placement of elements which overlap.
             Elements with a greater z-index within a stacking context will appear on top of those with a lower value.
             Indices are only compared within each stacking context

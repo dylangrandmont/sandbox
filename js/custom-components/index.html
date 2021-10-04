@@ -4,8 +4,7 @@
         <link rel="stylesheet" href="/palette.css" />
         <link rel="stylesheet" href="/body.css" />
         <script type="module" src="./code-block.js" ></script>
-        <script tye="module">
-        </script>
+        <script src="/topic-container.js"></script>
         <style>
             body {
                 background-color: var(--palette-main-1);
@@ -27,14 +26,16 @@
             ←
         </a>
         <h2>Web Components</h2>
+        <topic-container topics="js"></topic-container>
         <p>
             Web components are encapsulated UI components written in JS/HTML/CSS without the use of frameworks.
             Web components allow native HTML elements to be extended and composed with custom javascript funcitonality and isolated styles.
-            This technology allows encapsulation of HTML, CSS, and JS (which are typically global), without the use of a framework.
             </p>
         <p>
-            The example below is a use a web component to clear a web component.
-            In this case my component extends the div element in order to provide styles and a copy button to create a code block component.
+            In the example below, I declare a custom element which will render a codeblock.
+            In fact, the code is rendered inside an instance of that very custom component!
+            This custom component extends the HTML div element and formats its inner html as a string.
+            A copy button is provided to add the snippet to your clipboard.
         </p>
         <code-block>
             class CodeBlock extends HTMLElement {
