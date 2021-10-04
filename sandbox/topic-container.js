@@ -23,7 +23,6 @@ class TopicContainer extends HTMLElement {
         const h6 = document.createElement('h6');
         const topics = this.getAttribute('topics')
         h6.innerText = 'Topics: ';
-        console.log(topics)
         topics.split(',').forEach(topic => {
             const element = document.createElement('div')
             element.classList.add('topic')
