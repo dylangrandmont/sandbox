@@ -37,6 +37,9 @@
       .flex {
         display: flex;
       }
+      .flex.wrap {
+        flex-wrap: wrap;
+      }
       .column {
         flex-direction: column;
       }
@@ -51,7 +54,7 @@
     <p>Created by Dylan Grandmont for personal and teaching usage.</p>
     <div class="flex column">
       <h2><i></i>CSS</h2>
-      <div class="flex gap">
+      <div class="flex gap wrap">
         <a href="/css/flex/index.html">
           <div class="item" data-topic="flex">Flexbox</div>
         </a>
@@ -61,9 +64,9 @@
         <a href="/css/zindex/index.html">
           <div class="item">z-index</div>
         </a>
-      </div>
+      </div> 
       <h2>Web APIs</h2>
-      <div class="flex gap">
+      <div class="flex gap wrap">
         <a href="/js/webworker/index.html">
           <div class="item">WebWorker</div>
         </a>
@@ -76,7 +79,7 @@
       </div>
 
       <h2>Neutral Networks</h2>
-      <div class="flex gap">
+      <div class="flex gap wrap">
         <a href="/js/ocr/index.html">
           <div class="item">Tesseract (OCR)</div>
         </a>
