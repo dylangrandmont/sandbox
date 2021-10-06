@@ -9,7 +9,7 @@ class NavigationWheel extends HTMLElement {
         align-items: center;
         width: min-content;
     ">
-            <img src="/sandbox/ferris-svgrepo-com.svg" width="50">
+            <img src="/ferris-svgrepo-com.svg" width="50">
             ←
         </a>        `;
     }
