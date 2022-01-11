@@ -17,9 +17,15 @@
       }
       .grid {
         display: grid;
-        width: 100%;
-        grid-template-columns: 100px repeat(4, 200px);
         overflow: auto;
+      }
+      .grid.columns {
+        width: 100%;
+        grid-template-columns: 100px repeat(5, 200px);
+      }
+      .grid.rows {
+        height: 100px;
+        grid-template-rows: repeat(6, 40px);
       }
       .grid > div {
         border: 1px solid var(--palette-main-6);
@@ -31,14 +37,22 @@
         position: sticky;
         left: 0;
       }
+      .sticky-row {
+        position: sticky;
+        top: 0px
+      }
     </style>
   </head>
   <body>
     <navigation-wheel></navigation-wheel>
-    <h2>Grid with Sticky Column</h2>
+    <h2>Grids</h2>
     <topic-container topics="css,grid,sticky"></topic-container>
 
-    <div class="grid"><div class="sticky-column">sticky</div><div>1</div><div>2</div><div>3</div><div>4</div></div>
+    <h3>Sticky Column</h3>
+    <div class="grid columns"><div class="sticky-column">sticky</div><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div></div>
+
+    <h3>Multiple Sticky Rows</h3>
+    <div class="grid rows"><div class="sticky-row">sticky</div><div>1</div><div class="sticky-row">2 - sticky</div><div>3</div><div>4</div><div>5</div></div>
 
     <h3>References</h3>
     <p>For a great primer on css grid, checkout <a href="https://css-tricks.com/snippets/css/complete-guide-grid/">the guide from css-tricks</a></p>
