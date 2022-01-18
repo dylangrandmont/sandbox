@@ -7,7 +7,11 @@ class CodeSample extends HTMLElement {
 
     this.shadowRoot.addEventListener("slotchange", (event) => {
       const code = event.target.assignedElements()[0].innerHTML;
-      const snippet = code.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+      const indentation = code.match(/\s*/)[0].replace("\n", "").length;
+      const snippet = code
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replace(new RegExp(`^\\s{${indentation}}`, "gm"), ""); // remove leading indentation
       this.shadowRoot.getElementById("snippet").innerHTML = snippet;
     });
   }
