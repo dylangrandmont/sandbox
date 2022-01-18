@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="/body.css" />
     <script src="/components/topic-container.js"></script>
     <script src="/components/navigation-wheel.js"></script>
+    <script src="/components/code-sample.js"></script>
     <style>
       body {
         background-color: var(--palette-main-1);
@@ -34,14 +35,6 @@
         display: flex;
         justify-content: center;
       }
-      .sticky-column {
-        position: sticky;
-        left: 0;
-      }
-      .sticky-row {
-        position: sticky;
-        top: 0px
-      }
     </style>
   </head>
   <body>
@@ -54,26 +47,92 @@
     <p>We can use a combination of `display: grid` and `position: sticky` in order to create sticky columns and rows.</p>
 
     <h4>Sticky Column</h4>
-    <div class="grid columns"><div class="sticky-column">sticky</div><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div></div>
+
+    <code-sample>
+      <div slot="code">
+        <style>
+        .sticky-column {
+          position: sticky;
+          left: 0;
+        }
+        </style>
+
+        <div class="grid columns">
+          <div class="sticky-column">sticky</div>
+          <div>1</div>
+          <div>2</div>
+          <div>3</div>
+          <div>4</div>
+          <div>5</div>
+        </div>
+      </div>
+    </code-sample>
 
     <h4>Multiple Sticky Rows</h4>
-    <div class="grid rows"><div class="sticky-row">sticky</div><div>1</div><div class="sticky-row">2 - sticky</div><div>3</div><div>4</div><div>5</div></div>
+    <code-sample>
+      <div slot="code">
+        <style>
+        .sticky-row {
+          position: sticky;
+          top: 0px
+        }
+        </style>
+        <div class="grid rows">
+          <div class="sticky-row">sticky</div>
+          <div>1</div>
+          <div class="sticky-row">2 - sticky</div>
+          <div>3</div>
+          <div>4</div>
+          <div>5</div>
+        </div>
+      </div>
+    </code-sample>
+
 
     <h4>Sticky Cells</h4>
-    <div class="grid columns rows">
-      <div>(1,1)</div><div>(1,2)</div><div>(1,3)</div><div>(1,4)</div><div>(1,5)</div><div>(1,6)</div>
-      <div>(2,1)</div><div>(2,2)</div><div>(2,3)</div><div>(2,4)</div><div>(2,5)</div><div>(2,6)</div>
+    <code-sample>
+      <div slot="code">
+        <div class="grid columns rows">
+          <div>(1,1)</div>
+          <div>(1,2)</div>
+          <div>(1,3)</div>
+          <div>(1,4)</div>
+          <div>(1,5)</div>
+          <div>(1,6)</div>
+          <div>(2,1)</div>
+          <div>(2,2)</div>
+          <div>(2,3)</div>
+          <div>(2,4)</div>
+          <div>(2,5)</div>
+          <div>(2,6)</div>
 
-      <div class="sticky-row">(3,1)</div>
-      <div class="sticky-row">(2,2)</div>
-      <div class="sticky-row">(3,3)</div>
-      <div class="sticky-row">(3,4)</div>
-      <div class="sticky-row">(3,5)</div>
-      <div class="sticky-row">(3,6)</div>
-      <div>(4,1)</div><div>(2,2)</div><div>(4,3)</div><div>(4,4)</div><div>(4,5)</div><div>(4,6)</div>
-      <div>(5,1)</div><div>(5,2)</div><div>(5,3)</div><div>(5,4)</div><div>(5,5)</div><div>(5,6)</div>
-      <div>(6,1)</div><div>(6,2)</div><div>(6,3)</div><div>(6,4)</div><div>(6,5)</div><div>(6,6)</div>
-    </div>
+          <div class="sticky-row">(3,1)</div>
+          <div class="sticky-row">(2,2)</div>
+          <div class="sticky-row">(3,3)</div>
+          <div class="sticky-row">(3,4)</div>
+          <div class="sticky-row">(3,5)</div>
+          <div class="sticky-row">(3,6)</div>
+          <div>(4,1)</div>
+          <div>(2,2)</div>
+          <div>(4,3)</div>
+          <div>(4,4)</div>
+          <div>(4,5)</div>
+          <div>(4,6)</div>
+          <div>(5,1)</div>
+          <div>(5,2)</div>
+          <div>(5,3)</div>
+          <div>(5,4)</div>
+          <div>(5,5)</div>
+          <div>(5,6)</div>
+          <div>(6,1)</div>
+          <div>(6,2)</div>
+          <div>(6,3)</div>
+          <div>(6,4)</div>
+          <div>(6,5)</div>
+          <div>(6,6)</div>
+        </div>
+      </div>
+    </code-sample>
 
     <h3>References</h3>
     <p>For a great primer on css grid, checkout <a href="https://css-tricks.com/snippets/css/complete-guide-grid/">the guide from css-tricks</a></p>
