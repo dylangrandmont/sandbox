@@ -7,7 +7,6 @@ class CodeSample extends HTMLElement {
 
     this.shadowRoot.addEventListener("slotchange", (event) => {
       const code = event.target.assignedElements()[0].innerHTML;
-      console.log(event.target.assignedElements()[0].innerHTML);
       const snippet = code.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
       this.shadowRoot.getElementById("snippet").innerHTML = snippet;
     });
