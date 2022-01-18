@@ -1,9 +1,16 @@
+html {
+  display: flex;
+  justify-content: center;
+}
+
 body {
   margin: 0px;
   padding: 48px;
+  max-width: 800px;
   font-family: Roboto Mono;
+  width: calc(100% - 96px);
 }
 
 section {
-  padding: calc(6 * var(--theme-spacing)) calc(3 * var(--theme-spacing));
+  padding: calc(4 * var(--theme-spacing)) 0px;
 }
