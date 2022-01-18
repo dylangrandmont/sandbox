@@ -1,60 +1,85 @@
 <html>
-  <head>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/palette.css" />
-    <link rel="stylesheet" href="/body.css" />
-    <script src="/components/topic-container.js"></script>
-    <script src="/components/navigation-wheel.js"></script>
-    <script src="/components/code-sample.js"></script>
-    <style>
-      body {
-        background-color: var(--palette-main-1);
-      }
-      h3 {
-          padding-top: 16px;
-      }
-      h3:last-of-type {
-          padding-top: 32px;;
-      }
-      .grid {
-        display: grid;
-        overflow: auto;
-      }
-      .grid.columns {
-        width: 100%;
-        grid-template-columns: 100px repeat(5, 200px);
-      }
-      .grid.rows {
-        height: 100px;
-        grid-template-rows: repeat(6, 40px);
-      }
-      .grid > div {
-        padding: calc(2 * var(--theme-spacing));
-        border: 1px solid var(--palette-main-6);
-        background-color: var(--palette-main-1);
-        display: flex;
-        justify-content: center;
-      }
-    </style>
-  </head>
-  <body>
-    <navigation-wheel></navigation-wheel>
-    <h2>Grids</h2>
-    <topic-container topics="css,grid,sticky"></topic-container>
 
-    <h3>Stick Grids</h3>
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/palette.css" />
+  <link rel="stylesheet" href="/body.css" />
+  <script src="/components/topic-container.js"></script>
+  <script src="/components/navigation-wheel.js"></script>
+  <script src="/components/code-sample.js"></script>
+  <style>
+    body {
+      background-color: var(--palette-main-1);
+    }
 
-    <p>We can use a combination of `display: grid` and `position: sticky` in order to create sticky columns and rows.</p>
+    h3 {
+      padding-top: 16px;
+    }
 
+    h3:last-of-type {
+      padding-top: 32px;
+      ;
+    }
+
+    .grid {
+      display: grid;
+      overflow: auto;
+    }
+
+    .grid.columns {
+      width: 100%;
+      grid-template-columns: 100px repeat(5, 200px);
+    }
+
+    .grid.rows {
+      height: 100px;
+      grid-template-rows: repeat(6, 40px);
+    }
+
+    .grid>div {
+      padding: calc(2 * var(--theme-spacing));
+      border: 1px solid var(--palette-main-6);
+      background-color: var(--palette-main-1);
+      display: flex;
+      justify-content: center;
+    }
+  </style>
+</head>
+
+<body>
+  <navigation-wheel></navigation-wheel>
+  <h2>Grids</h2>
+  <topic-container topics="css,grid,sticky"></topic-container>
+
+  <section>
+    <h3>Sticky Grids</h3>
+
+
+    <p>We can use a combination of `display: grid` and `position: sticky` in order to create sticky columns and rows.
+    </p>
+    <p>
+      This effect can be seen in most spreadsheet applications, when a row or column of data can be "pinned" in place.
+      This allows a user to scan tabular data while holding the row or column in place as a reference.
+      To understand how to achieve this, we will build sticky columns, then sticky rows, then put the two together into
+      a
+      full table
+    </p>
+  </section>
+
+  <section>
     <h4>Sticky Column</h4>
+
+    <p>
+      First we create a 1xN grid of cells and apply a sticky position to the cell (column) we wish to pin.
+    </p>
 
     <code-sample>
       <div slot="code">
         <style>
-        .sticky-column {
-          position: sticky;
-          left: 0;
-        }
+          .sticky-column {
+            position: sticky;
+            left: 0;
+          }
         </style>
 
         <div class="grid columns">
@@ -67,15 +92,19 @@
         </div>
       </div>
     </code-sample>
+  </section>
 
+  <section>
     <h4>Multiple Sticky Rows</h4>
+    <p>We can orient our grid along another dimension as well and apply a sticky positon relative to the vertical
+      instead of horizontal.</p>
     <code-sample>
       <div slot="code">
         <style>
-        .sticky-row {
-          position: sticky;
-          top: 0px
-        }
+          .sticky-row {
+            position: sticky;
+            top: 0px;
+          }
         </style>
         <div class="grid rows">
           <div class="sticky-row">sticky</div>
@@ -87,44 +116,58 @@
         </div>
       </div>
     </code-sample>
+  </section>
 
-
+  <section>
     <h4>Sticky Cells</h4>
+    <p>Putting the above together, our strategy with a NxM grid is to render out the cells, then apply the correct stick
+      class to each cell, based on whether it falls within a sticky column or sticky row.
+      We must also set the z index for these cells to ensure the pinned data is never covered.
+    </p>
     <code-sample>
       <div slot="code">
+        <style>
+          .sticky-row {
+            z-index: 1;
+          }
+
+          .sticky-column.sticky-row {
+            z-index: 2;
+          }
+        </style>
         <div class="grid columns rows">
-          <div>(1,1)</div>
+          <div class="sticky-column">(1,1)</div>
           <div>(1,2)</div>
           <div>(1,3)</div>
           <div>(1,4)</div>
           <div>(1,5)</div>
           <div>(1,6)</div>
-          <div>(2,1)</div>
+          <div class="sticky-column">(2,1)</div>
           <div>(2,2)</div>
           <div>(2,3)</div>
           <div>(2,4)</div>
           <div>(2,5)</div>
           <div>(2,6)</div>
 
-          <div class="sticky-row">(3,1)</div>
-          <div class="sticky-row">(2,2)</div>
+          <div class="sticky-row sticky-column">(3,1)</div>
+          <div class="sticky-row">(3,2)</div>
           <div class="sticky-row">(3,3)</div>
           <div class="sticky-row">(3,4)</div>
           <div class="sticky-row">(3,5)</div>
           <div class="sticky-row">(3,6)</div>
-          <div>(4,1)</div>
+          <div class="sticky-column">(4,1)</div>
           <div>(2,2)</div>
           <div>(4,3)</div>
           <div>(4,4)</div>
           <div>(4,5)</div>
           <div>(4,6)</div>
-          <div>(5,1)</div>
+          <div class="sticky-column">(5,1)</div>
           <div>(5,2)</div>
           <div>(5,3)</div>
           <div>(5,4)</div>
           <div>(5,5)</div>
           <div>(5,6)</div>
-          <div>(6,1)</div>
+          <div class="sticky-column">(6,1)</div>
           <div>(6,2)</div>
           <div>(6,3)</div>
           <div>(6,4)</div>
@@ -133,8 +176,13 @@
         </div>
       </div>
     </code-sample>
+  </section>
 
+  <section>
     <h3>References</h3>
-    <p>For a great primer on css grid, checkout <a href="https://css-tricks.com/snippets/css/complete-guide-grid/">the guide from css-tricks</a></p>
+    <p>For a great primer on css grid, checkout <a href="https://css-tricks.com/snippets/css/complete-guide-grid/">the
+        guide from css-tricks</a></p>
+  </section>
 </body>
+
 </html>

@@ -1,5 +1,9 @@
 body {
-    margin: 0px;
-    padding: 48px;
-    font-family: Roboto Mono;
+  margin: 0px;
+  padding: 48px;
+  font-family: Roboto Mono;
+}
+
+section {
+  padding: calc(6 * var(--theme-spacing)) calc(3 * var(--theme-spacing));
 }
