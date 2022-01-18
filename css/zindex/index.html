@@ -1,67 +1,96 @@
 <html>
-    <head>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500;700&display=swap" rel="stylesheet" />
-        <link rel="stylesheet" href="/palette.css" />
-        <link rel="stylesheet" href="/body.css" />
-        <script src="/components/topic-container.js"></script>
-        <script src="/components/navigation-wheel.js"></script>
-        <style>
-            body {
-                background-color: var(--palette-main-1);
-            }
-            h3 {
-                padding-top: 24px;
-            }
-            .item {
-                background-color: var(--palette-main-0);
-                padding: 8px;
-                border: 1px solid var(--palette-main-6);
-            }
-            .z0 {
-                z-index: 0;
-            }
-            .z1 {
-                z-index: 1;
-            }
-            .z2 {
-                z-index: 2;
-            }
-            .absolute-container {
-                position: relative;
-                height: 100px;
-                padding: 16px;
-            }
-            .absolute-container.background {
-                background-color: var(--palette-main-2);
-            }
-            .absolute-container > div {
-                white-space: nowrap;
-                position: absolute;
-                top: 0px;
-            }
-            .absolute-container > div:nth-child(2) {
-                top: 24px;
-            }
-            .absolute-container > div:nth-child(3) {
-                top: 48px;
-            }
-        </style>
-    </head>
-    <body>
-        <navigation-wheel></navigation-wheel>
-          <h2>Z Index</h2>
-          <topic-container topics="css"></topic-container>
-          <p>
-            Z Indices control the placement of elements which overlap.
-            Elements with a greater z-index within a stacking context will appear on top of those with a lower value.
-            Indices are only compared within each stacking context
 
-        </p>
-        <h3>Example: Normal flow</h3>
-        <p>
-            By default, elements are placed within a document's normal flow.
-            As such they will not overlap and z-index is not relevant
-        </p>
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500;700&display=swap" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/palette.css" />
+    <link rel="stylesheet" href="/body.css" />
+    <script src="/components/topic-container.js"></script>
+    <script src="/components/navigation-wheel.js"></script>
+    <style>
+        body {
+            background-color: var(--palette-main-1);
+        }
+
+        h3 {
+            padding-top: 24px;
+        }
+
+        .item {
+            background-color: var(--palette-main-0);
+            padding: 8px;
+            border: 1px solid var(--palette-main-6);
+        }
+
+        .z0 {
+            z-index: 0;
+        }
+
+        .z1 {
+            z-index: 1;
+        }
+
+        .z2 {
+            z-index: 2;
+        }
+
+        .absolute-container {
+            position: relative;
+            height: 100px;
+            padding: 16px;
+        }
+
+        .absolute-container.background {
+            background-color: var(--palette-main-2);
+        }
+
+        .absolute-container>div {
+            white-space: nowrap;
+            position: absolute;
+            top: 0px;
+        }
+
+        .absolute-container>div:nth-child(2) {
+            top: 24px;
+        }
+
+        .absolute-container>div:nth-child(3) {
+            top: 48px;
+        }
+    </style>
+</head>
+
+<body>
+    <navigation-wheel></navigation-wheel>
+    <h2>Z Index</h2>
+    <topic-container topics="css"></topic-container>
+    <p>
+        Z Indices control the placement of elements which overlap.
+        Elements with a greater z-index within a stacking context will appear on top of those with a lower value.
+        Indices are only compared within each stacking context
+
+    </p>
+    <h3>Example: Normal flow</h3>
+    <p>
+        By default, elements are placed within a document's normal flow.
+        As such they will not overlap and z-index is not relevant
+    </p>
+    <div class="item z0">
+        z-index: 0
+    </div>
+    <div class="item z1">
+        z-index: 1
+    </div>
+    <div class="item z2">
+        z-index: 2
+    </div>
+
+    <h3>Example: Absolute Positioned</h3>
+    <p>
+        When elements are taken out of the normal flow (for example, by positioning them absolutely), their z-index
+        values are compared within the stacking context.
+    </p>
+    <div class="absolute-container background">
         <div class="item z0">
             z-index: 0
         </div>
@@ -71,41 +100,28 @@
         <div class="item z2">
             z-index: 2
         </div>
+    </div>
 
-        <h3>Example: Absolute Positioned</h3>
-        <p>
-            When elements are taken out of the normal flow (for example, by positioning them absolutely), their z-index values are compared within the stacking context.
-        </p>
-        <div class="absolute-container background">
+    <h3>Example: Creating Stacking Contexts</h3>
+    <p>
+        By giving a container element a z-index and a position, we create a stacking context.
+        z-index values are only compared within a given context and not across the entire document.
+        In this example, the item with a <i>lower</i> z index appears at the top because it exists within a stacking
+        context
+        whose z index is highest.
+    </p>
+    <div class="absolute-container background">
+        <div class="absolute-container z2">
             <div class="item z0">
                 z-index: 0
             </div>
-            <div class="item z1">
-                z-index: 1
-            </div>
+        </div>
+        <div class="absolute-container z0">
             <div class="item z2">
                 z-index: 2
             </div>
         </div>
+    </div>
+</body>
 
-        <h3>Example: Creating Stacking Contexts</h3>
-        <p>
-            By giving a container element a z-index and a position, we create a stacking context.
-            z-index values are only compared within a given context and not across the entire document.
-            In this example, the item with a <i>lower</i> z index appears at the top because it exists within a stacking context
-            whose z index is highest.
-        </p>
-        <div class="absolute-container background">
-            <div class="absolute-container z2">
-                <div class="item z0">
-                    z-index: 0
-                </div>
-            </div>
-            <div class="absolute-container z0">
-                <div class="item z2">
-                    z-index: 2
-                </div>
-            </div>
-        </div>
-    </body>
 </html>
