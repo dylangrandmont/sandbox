@@ -1,0 +1,41 @@
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500;700&display=swap" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/palette.css" />
+    <link rel="stylesheet" href="/body.css" />
+    <script src="/components/topic-container.js"></script>
+    <script src="/components/navigation-wheel.js"></script>
+    <style>
+      body {
+        background-color: var(--palette-main-1);
+      }
+      @media (prefers-color-scheme: dark) {
+        body {
+          background-color: var(--palette-main-6);
+          color: var(--palette-main-1)
+        }
+        a {
+          color: var(--palette-main-2)
+        }
+      }
+    </style>
+</head>
+
+<body>
+    <navigation-wheel></navigation-wheel>
+    <h2>Dark Mode</h2>
+    <topic-container topics="css,dark-mode"></topic-container>
+
+    <p>Change your browser or OS preference for dark mode to view the page background.</p>
+
+    <h3>References</h3>
+    <p>Several great exhaustive primers on dark modes exist including</p>
+    <ul>
+      <li><a href="https://www.joshwcomeau.com/react/dark-mode/#introduction">Josh Comeau's guide</a></li>
+      <li><a href="https://electricanimals.com/articles/next-js-dark-mode-toggle">Rob Morieson's guide</a></li>
+    </ul>
+</body>
+
+</html>
